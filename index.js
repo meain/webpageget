@@ -2,6 +2,8 @@
 const puppeteer = require("puppeteer");
 const program = require("commander");
 const fs = require("fs");
+const { Readability } = require("@mozilla/readability");
+const JSDOM = require("jsdom").JSDOM;
 
 program
   .version("0.1.0") // keep this is sync with package.json
@@ -58,6 +60,28 @@ function html(page, output_path) {
     });
   });
 }
+function content(page, output_path, options) {
+  return new Promise((resolve, reject) => {
+    page.content().then((content) => {
+      var doc = new JSDOM(content, { url: options.url });
+      let reader = new Readability(doc.window.document);
+      let article = reader.parse();
+      fs.writeFileSync(output_path, article.content);
+      resolve();
+    });
+  });
+}
+function text(page, output_path, options) {
+  return new Promise((resolve, reject) => {
+    page.content().then((content) => {
+      var doc = new JSDOM(content, { url: options.url });
+      let reader = new Readability(doc.window.document);
+      let article = reader.parse();
+      fs.writeFileSync(output_path, article.textContent);
+      resolve();
+    });
+  });
+}
 function pdf(page, output_path, options) {
   return new Promise((resolve, reject) => {
     page
@@ -86,6 +110,7 @@ const url = program.args[1];
 const output_path = program.args[2];
 const timeout = program.timeout;
 const options = {
+  url,
   pageSize: program.pageSize,
   fullPage: program.fullPage,
   width: program.width,
@@ -100,9 +125,15 @@ switch (task) {
   case "html":
     fetchPage(url, timeout, options, (page) => html(page, output_path));
     break;
+  case "content":
+    fetchPage(url, timeout, options, (page) => content(page, output_path, options));
+    break;
+  case "text":
+    fetchPage(url, timeout, options, (page) => text(page, output_path, options));
+    break;
   case "pdf":
     fetchPage(url, timeout, options, (page) => pdf(page, output_path, options));
     break;
   default:
-    console.error("Task options are screenshot,content,pdf. Invalid option.");
+    console.error("Task options are screenshot,html,content,pdf. Invalid option.");
 }

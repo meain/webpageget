@@ -9,11 +9,17 @@
   "bin": {
     "webpageutils": "node index.js"
   },
-  "keywords": ["webpage", "screenshot", "html-dump"],
+  "keywords": [
+    "webpage",
+    "screenshot",
+    "html-dump"
+  ],
   "author": "Abin Simon <mail@meain.io> (https://meain.io)",
   "license": "Apache-2.0",
   "dependencies": {
+    "@mozilla/readability": "^0.3.0",
     "commander": "^6.2.0",
+    "jsdom": "^16.4.0",
     "puppeteer": "^5.4.1"
   }
 }
