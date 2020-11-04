@@ -6,7 +6,7 @@ const { Readability } = require("@mozilla/readability");
 const JSDOM = require("jsdom").JSDOM;
 
 program
-  .version("0.1.0") // keep this is sync with package.json
+  .version("0.2.0") // keep this is sync with package.json
   .arguments("<task> <url> <output_path>")
   .name("webpageget")
   .option("-t, --timeout <value>", "timeout for page load", 30000)
@@ -17,11 +17,14 @@ program
 
 program.on("--help", () => {
   console.log("");
-  console.log("`task` can be one of screenshot, pdf or html");
+  console.log("`task` can be one of screenshot, pdf, html, context or text.");
+  console.log("  mozilla/readability is used for extracting content out of a page");
   console.log("Example calls:");
   console.log("  $ webpageget screenshot 'https://example.com' example.png");
   console.log("  $ webpageget pdf 'https://example.com' example.pdf");
   console.log("  $ webpageget html 'https://example.com' example.html");
+  console.log("  $ webpageget content 'https://example.com' example.html");
+  console.log("  $ webpageget text 'https://example.com' example.txt");
 });
 program.parse(process.argv);
 
