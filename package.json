@@ -1,5 +1,5 @@
 {
-  "name": "webpageutils",
+  "name": "webpageget",
   "version": "0.1.0",
   "description": "Tiny utility function to get stuff off of a webpage.",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "run": "node index.js"
   },
   "bin": {
-    "webpageutils": "node index.js"
+    "webpageget": "node index.js"
   },
   "keywords": [
     "webpage",

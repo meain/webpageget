@@ -8,7 +8,7 @@ const JSDOM = require("jsdom").JSDOM;
 program
   .version("0.1.0") // keep this is sync with package.json
   .arguments("<task> <url> <output_path>")
-  .name("webpageutils")
+  .name("webpageget")
   .option("-t, --timeout <value>", "timeout for page load", 30000)
   .option("-w, --width <value>", "width of the browser window", 1500)
   .option("-h, --height <value>", "height of the browser window", 1000)
@@ -19,9 +19,9 @@ program.on("--help", () => {
   console.log("");
   console.log("`task` can be one of screenshot, pdf or html");
   console.log("Example calls:");
-  console.log("  $ webpageutils screenshot 'https://example.com' example.png");
-  console.log("  $ webpageutils pdf 'https://example.com' example.pdf");
-  console.log("  $ webpageutils html 'https://example.com' example.html");
+  console.log("  $ webpageget screenshot 'https://example.com' example.png");
+  console.log("  $ webpageget pdf 'https://example.com' example.pdf");
+  console.log("  $ webpageget html 'https://example.com' example.html");
 });
 program.parse(process.argv);
 
