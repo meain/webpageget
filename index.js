@@ -6,12 +6,22 @@ const fs = require("fs");
 program
   .version("0.1.0") // keep this is sync with package.json
   .arguments("<task> <url> <output_path>")
+  .name("webpageutils")
   .option("-t, --timeout <value>", "timeout for page load", 30000)
   .option("-w, --width <value>", "width of the browser window", 1500)
   .option("-h, --height <value>", "height of the browser window", 1000)
   .option("-f, --full-page", "use full page or not", true)
-  .option("-p, --page-size <value>", "page size for pdf export", "A4")
-  .parse(process.argv);
+  .option("-p, --page-size <value>", "page size for pdf export", "A4");
+
+program.on("--help", () => {
+  console.log("");
+  console.log("`task` can be one of screenshot, pdf or html");
+  console.log("Example calls:");
+  console.log("  $ webpageutils screenshot 'https://example.com' example.png");
+  console.log("  $ webpageutils pdf 'https://example.com' example.pdf");
+  console.log("  $ webpageutils html 'https://example.com' example.html");
+});
+program.parse(process.argv);
 
 function fetchPage(url, timeout, options, callback) {
   puppeteer
