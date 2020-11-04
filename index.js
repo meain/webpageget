@@ -40,7 +40,7 @@ function screenshot(page, output_path, options) {
       });
   });
 }
-function content(page, output_path) {
+function html(page, output_path) {
   return new Promise((resolve, reject) => {
     page.content().then((content) => {
       fs.writeFileSync(output_path, content);
@@ -87,8 +87,8 @@ switch (task) {
       screenshot(page, output_path, options)
     );
     break;
-  case "content":
-    fetchPage(url, timeout, options, (page) => content(page, output_path));
+  case "html":
+    fetchPage(url, timeout, options, (page) => html(page, output_path));
     break;
   case "pdf":
     fetchPage(url, timeout, options, (page) => pdf(page, output_path, options));
