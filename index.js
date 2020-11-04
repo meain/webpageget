@@ -23,8 +23,7 @@ function fetchPage(url, timeout, options, callback) {
           page
             .goto(url, { waitUntil: "networkidle0", timeout: timeout })
             .then(() => {
-              callback(page);
-              // ideally we need a browser.close() here run after callback
+              callback(page).then(() => browser.close());
             });
         })
         .catch((e) => reject(e));
@@ -33,24 +32,34 @@ function fetchPage(url, timeout, options, callback) {
 }
 
 function screenshot(page, output_path, options) {
-  page.screenshot({ path: output_path, fullPage: options.fullPage });
+  return new Promise((resolve, reject) => {
+    page
+      .screenshot({ path: output_path, fullPage: options.fullPage })
+      .then(() => {
+        resolve();
+      });
+  });
 }
 function content(page, output_path) {
-  page.content().then((content) => {
-    fs.writeFileSync(output_path, content);
-    process.exit(0); // not sure why it is not exiting without this
+  return new Promise((resolve, reject) => {
+    page.content().then((content) => {
+      fs.writeFileSync(output_path, content);
+      resolve();
+    });
   });
 }
 function pdf(page, output_path, options) {
-  page
-    .pdf({
-      path: output_path,
-      fullPage: options.fullPage,
-      format: options.pageSize,
-    })
-    .then(() => {
-      process.exit(0); // not sure why it is not exiting without this
-    });
+  return new Promise((resolve, reject) => {
+    page
+      .pdf({
+        path: output_path,
+        fullPage: options.fullPage,
+        format: options.pageSize,
+      })
+      .then(() => {
+        resolve();
+      });
+  });
 }
 
 function showHelpAndExit(missing_item) {
