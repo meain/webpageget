@@ -1,7 +1,7 @@
 wepageget
 =========
 
-A tiny utility to "get" a fully webpage in a few formats(screenshot, pdf, html, content or text).
+A tiny utility to "get" a fully renderd webpage in a few formats(screenshot, pdf, html, content or text).
 
 Usage: webpageget [options] <task> <url> <output_path>
 
