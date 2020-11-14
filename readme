@@ -1,0 +1,24 @@
+wepageget
+=========
+
+A tiny utility to "get" a fully webpage in a few formats(screenshot, pdf, html, content or text).
+
+Usage: webpageget [options] <task> <url> <output_path>
+
+Options:
+  -V, --version            output the version number
+  -t, --timeout <value>    timeout for page load (default: 30000)
+  -w, --width <value>      width of the browser window (default: 1500)
+  -h, --height <value>     height of the browser window (default: 1000)
+  -f, --full-page          use full page or not (default: true)
+  -p, --page-size <value>  page size for pdf export (default: "A4")
+  --help                   display help for command
+
+`task` can be one of screenshot, pdf, html, content or text.
+  mozilla/readability is used for extracting content out of a page
+Example calls:
+  $ webpageget screenshot 'https://example.com' example.png
+  $ webpageget pdf 'https://example.com' example.pdf
+  $ webpageget html 'https://example.com' example.html
+  $ webpageget content 'https://example.com' example.html
+  $ webpageget text 'https://example.com' example.txt
