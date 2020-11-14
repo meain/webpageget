@@ -17,7 +17,7 @@ program
 
 program.on("--help", () => {
   console.log("");
-  console.log("`task` can be one of screenshot, pdf, html, context or text.");
+  console.log("`task` can be one of screenshot, pdf, html, content or text.");
   console.log("  mozilla/readability is used for extracting content out of a page");
   console.log("Example calls:");
   console.log("  $ webpageget screenshot 'https://example.com' example.png");
